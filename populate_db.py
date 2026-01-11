@@ -9,6 +9,8 @@ def populate():
 
 	from jailed.models import Prison
 	from django.contrib.gis.geos import GEOSGeometry
+	if Prison.objects.exists():
+		return
 	p = GEOSGeometry('POINT(4.06388 9.71237)', srid=4326)
 
 	p1 = Prison.objects.create(name="Japap", location=p)
