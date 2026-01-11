@@ -151,6 +151,12 @@ FILE_UPLOAD_PERMISSIONS = 0o644
 # DATABASES #
 #############
 
+DB_NAME = os.environ.get("DJANGO_DB_NAME", "katika")
+DB_USER = os.environ.get("DJANGO_DB_USER", "vagrant")
+DB_PASSWORD = os.environ.get("DJANGO_DB_PASSWORD", "")
+DB_HOST = os.environ.get("DJANGO_DB_HOST", "")
+DB_PORT = os.environ.get("DJANGO_DB_PORT", "")
+
 DATABASES = {
     "default": {
         # Ends with "postgresql_psycopg2", "mysql", "sqlite3" or "oracle".
@@ -160,18 +166,21 @@ DATABASES = {
         "ENGINE": "django.contrib.gis.db.backends.postgis",
         # DB name or path to database file if using sqlite3.
         # "NAME": "dev.db",
-        "NAME": "katika",
+        "NAME": DB_NAME,
         #https://stackoverflow.com/questions/36214127/django-db-utils-operationalerror-fe-sendauth-no-password-supplied
         #"NAME": "",
         # Not used with sqlite3.
         # "USER": "postgres",
-        "USER": "vagrant",
+        "USER": DB_USER,
         # Not used with sqlite3.
         #"PASSWORD": "postgres",
+        "PASSWORD": DB_PASSWORD,
         # Set to empty string for localhost. Not used with sqlite3.
         #"HOST": "localhost",
+        "HOST": DB_HOST,
         # Set to empty string for default. Not used with sqlite3.
         #"PORT": "",
+        "PORT": DB_PORT,
     }
 }
 

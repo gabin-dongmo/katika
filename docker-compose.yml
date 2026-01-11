@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgis/postgis:13-3.1
+    environment:
+      POSTGRES_DB: katika
+      POSTGRES_USER: katika
+      POSTGRES_PASSWORD: katika
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  web:
+    build: .
+    environment:
+      DJANGO_DB_NAME: katika
+      DJANGO_DB_USER: katika
+      DJANGO_DB_PASSWORD: katika
+      DJANGO_DB_HOST: db
+      DJANGO_DB_PORT: "5432"
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+
+volumes:
+  postgres_data:

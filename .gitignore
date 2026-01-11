@@ -236,3 +236,4 @@ ENV/
 # Migrations
 migrations/
 .vagrant/
+.idea

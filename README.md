@@ -21,6 +21,28 @@ Then after cloning the repo, cd to the root directory and run `vagrant up`.
 If everything goes well, a VM will be created, everything installed and Katika running in that VM on port 8000 which will be exposed to your host machine on port 8002.
 So head to http://localhost:8002
 
+## Docker / Docker Compose
+If you prefer Docker for local development:
+
+1. Build and start the containers:
+   ```bash
+   docker compose up --build
+   ```
+2. Create PostGIS extension and run migrations:
+   ```bash
+   docker compose exec db psql -U katika -d katika -c "CREATE EXTENSION IF NOT EXISTS postgis;"
+   docker compose exec web python manage.py migrate
+   ```
+3. (Optional) Create a superuser:
+   ```bash
+   docker compose exec web python manage.py createsuperuser
+   ```
+4. Open http://localhost:8000
+
+Notes:
+- GeoDjango on Django 1.11 expects an older GEOS version string. The Dockerfile includes a small patch to avoid a startup error.
+- Database settings are configurable via environment variables: `DJANGO_DB_NAME`, `DJANGO_DB_USER`, `DJANGO_DB_PASSWORD`, `DJANGO_DB_HOST`, `DJANGO_DB_PORT`.
+
 ## Troubleshooting
 * To change how what port is exposed and, in general, OS stuff, check the Vagrantfile.
 * To see what is installed and how the DB (Postgres) is configured, check install.sh
@@ -36,6 +58,7 @@ Then head to http://localhost:8002/admin and access the management interface.
 _Here is an area where Django really shines._
 
 
+
 # Where do we think we need help?
 * Katika runs on an extremely tight budget, so we need to squeeze capacity/resource whenever possible. Let us know or just submit proposal on optimization ideas.
 * We think our UX/UI can be improved, so if you have front-end suggestions and would like to contribute, please do not hesitate
@@ -49,7 +72,3 @@ By giving back to the community, we hope to foster a stronger Dev ecosystem in C
 
 # License
 This code is free as in 'free beer'. It would be nice to reference the project when used but it is NOT required.
-
-
-
-
