@@ -20,6 +20,7 @@ RUN sed -i 's|deb.debian.org|archive.debian.org|g' /etc/apt/sources.list \
     libjpeg-dev \
     libpq-dev \
     libproj-dev \
+    postgresql-client \
     proj-bin \
     zlib1g-dev \
   && rm -rf /var/lib/apt/lists/*
@@ -36,4 +37,5 @@ COPY . /app/
 ENV GDAL_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/libgdal.so
 ENV GEOS_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/libgeos_c.so
 
+ENTRYPOINT ["/app/docker-entrypoint.sh"]
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

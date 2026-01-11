@@ -28,20 +28,16 @@ If you prefer Docker for local development:
    ```bash
    docker compose up --build
    ```
-2. Create PostGIS extension and run migrations:
-   ```bash
-   docker compose exec db psql -U katika -d katika -c "CREATE EXTENSION IF NOT EXISTS postgis;"
-   docker compose exec web python manage.py migrate
-   ```
-3. (Optional) Create a superuser:
+2. (Optional) Create a superuser:
    ```bash
    docker compose exec web python manage.py createsuperuser
    ```
-4. Open http://localhost:8000
+3. Open http://localhost:8000
 
 Notes:
 - GeoDjango on Django 1.11 expects an older GEOS version string. The Dockerfile includes a small patch to avoid a startup error.
 - Database settings are configurable via environment variables: `DJANGO_DB_NAME`, `DJANGO_DB_USER`, `DJANGO_DB_PASSWORD`, `DJANGO_DB_HOST`, `DJANGO_DB_PORT`.
+- Migrations and sample data population run automatically on container startup. Set `DJANGO_RUN_MIGRATIONS=0` or `DJANGO_AUTO_POPULATE=0` to disable.
 
 ## Troubleshooting
 * To change how what port is exposed and, in general, OS stuff, check the Vagrantfile.
