@@ -234,6 +234,6 @@ ENV/
 /site
 
 # Migrations
-migrations/
+**/migrations/__pycache__/
 .vagrant/
 .idea

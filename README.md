@@ -28,6 +28,10 @@ If you prefer Docker for local development:
    ```bash
    docker compose up --build
    ```
+   This runs in the foreground and attaches to logs. Use `-d` to run in the background:
+   ```bash
+   docker compose up -d --build
+   ```
 2. (Optional) Create a superuser:
    ```bash
    docker compose exec web python manage.py createsuperuser
@@ -38,6 +42,7 @@ Notes:
 - GeoDjango on Django 1.11 expects an older GEOS version string. The Dockerfile includes a small patch to avoid a startup error.
 - Database settings are configurable via environment variables: `DJANGO_DB_NAME`, `DJANGO_DB_USER`, `DJANGO_DB_PASSWORD`, `DJANGO_DB_HOST`, `DJANGO_DB_PORT`.
 - Migrations and sample data population run automatically on container startup. Set `DJANGO_RUN_MIGRATIONS=0` or `DJANGO_AUTO_POPULATE=0` to disable.
+- If you see `relation "<app>_<model>" does not exist` during `populate_db.py`, the app migrations are missing or not in `<app>/migrations`. Ensure migrations exist and rebuild (`docker compose build --no-cache web`).
 
 ## Troubleshooting
 * To change how what port is exposed and, in general, OS stuff, check the Vagrantfile.
