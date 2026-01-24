@@ -3,6 +3,8 @@
 This project hosts the source code of https://katika237.com
 It is an umbrella of projects that focus show making useful data on Cameroon easily available e.g. on public contracts, tax declaration, incident with focus on the anglophone crisis and Boko haram, incarceration records focus on arbitrary and illegal arrests...
 
+See `ARCHITECTURE.md` for the application architecture overview.
+
 Each sub-project has (or should have) it's own README.md describing specific (non-)technical aspects around it
 
 At its core Katika uses:
