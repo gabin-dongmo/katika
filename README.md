@@ -44,6 +44,15 @@ Notes:
 - Migrations and sample data population run automatically on container startup. Set `DJANGO_RUN_MIGRATIONS=0` or `DJANGO_AUTO_POPULATE=0` to disable.
 - If you see `relation "<app>_<model>" does not exist` during `populate_db.py`, the app migrations are missing or not in `<app>/migrations`. Ensure migrations exist and rebuild (`docker compose build --no-cache web`).
 
+### Apple Silicon (M1/M2/M3…)
+
+The setup runs on Apple Silicon Macs with Docker Desktop:
+
+- In Docker Desktop, enable **Settings → General → "Use Rosetta for x86_64/amd64 emulation on Apple Silicon"**.
+- The `web` container runs natively (`arm64`). The `db` container runs as `linux/amd64` under emulation, because `postgis/postgis` has no `arm64` image (`platform: linux/amd64` in `docker-compose.yml`).
+- The first build takes several minutes: Python dependencies are compiled from source and the `db` image compiles the `kmeans` PostgreSQL extension (used by the incident map). Later builds are cached.
+- To start from a clean database (e.g. after changing `docker/db/`), run `docker compose down -v` before `docker compose up --build`.
+
 ## Troubleshooting
 * To change how what port is exposed and, in general, OS stuff, check the Vagrantfile.
 * To see what is installed and how the DB (Postgres) is configured, check install.sh
