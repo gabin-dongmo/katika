@@ -34,8 +34,5 @@ RUN sed -i "s/( r\\\\d.*/.*$'/" /usr/local/lib/python3.6/site-packages/django/co
 
 COPY . /app/
 
-ENV GDAL_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/libgdal.so
-ENV GEOS_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/libgeos_c.so
-
 ENTRYPOINT ["/app/docker-entrypoint.sh"]
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
