@@ -1,6 +1,8 @@
 #!/bin/sh
 set -e
 
+mkdir -p /app/logs
+
 DB_NAME="${DJANGO_DB_NAME:-katika}"
 DB_USER="${DJANGO_DB_USER:-katika}"
 DB_PASSWORD="${DJANGO_DB_PASSWORD:-katika}"
