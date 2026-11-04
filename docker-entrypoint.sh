@@ -19,7 +19,8 @@ if [ "${DJANGO_WAIT_FOR_DB:-1}" = "1" ]; then
 fi
 
 psql -h "$DB_HOST" -p "$DB_PORT" -U "$DB_USER" -d "$DB_NAME" -v ON_ERROR_STOP=1 \
-  -c "CREATE EXTENSION IF NOT EXISTS postgis;"
+  -c "CREATE EXTENSION IF NOT EXISTS postgis;" \
+  -c "CREATE EXTENSION IF NOT EXISTS kmeans;"
 
 psql -h "$DB_HOST" -p "$DB_PORT" -U "$DB_USER" -d "$DB_NAME" -v ON_ERROR_STOP=1 \
   -f /app/config_french_unaccent.sql
